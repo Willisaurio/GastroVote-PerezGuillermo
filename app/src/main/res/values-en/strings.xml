@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GastroVote</string>
+    <string name="app_title">GastroVote</string>
+    <string name="subtitle">Tapa\'s route</string>
+    <string name="bar_name">bar name</string>
+    <string name="tapa">tapa tried</string>
+    <string name="precio">cost (€)</string>
+    <string name="like">Like</string>
+    <string name="did_u_like">Did you like it?</string>
+    <string name="i_liked">You liked it!</string>
+    <string name="descuento_estudiante">Student discount (10%)</string>
+    <string name="clear">CLEAR</string>
+    <string name="calc">CALCULATE COST</string>
+    <string name="final_price">Here will appear the final cost</string>
+    <string name="empty_field_warning">Set bar and tapa first</string>
+    <string name="bad_price">Input a valid cost</string>
+    <string name="calculated">cost calculated</string>
+    <string name="not_discount">Discount: not applied</string>
+    <string name="carne">Remember to show your student ID</string>
+    <string name="cleared">Form cleared</string>
+    <string name="res_tapa">"Tapa: "</string>
+    <string name="res_bar">"Bar: "</string>
+    <string name="res_price">"Cost: "</string>
+    <string name="res_disc">"Student discount: "</string>
+    <string name="res_final_price">"Final cost: "</string>
+    <string name="res_like">"Like: "</string>
+</resources>
