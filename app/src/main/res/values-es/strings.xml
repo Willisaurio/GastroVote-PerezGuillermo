@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">GastroVote</string>
+    <string name="app_title">GastroVote</string>
+    <string name="subtitle">Ruta de la tapa</string>
+    <string name="bar_name">Nombre del Bar</string>
+    <string name="tapa">Tapa que has probado</string>
+    <string name="precio">Precio (€)</string> <!-- espero que no de error de caracter raro el euro -->
+    <string name="like">Me gusta</string>
+    <string name="did_u_like">¿Te ha gustado?</string>
+    <string name="i_liked">¡Te ha gustado esta tapa!</string>
+    <string name="descuento_estudiante">Descuento estudiante (10%)</string>
+    <string name="clear">LIMPIAR</string>
+    <string name="calc">CALCULAR PRECIO</string>
+    <string name="final_price">Aquí aparecerá el precio final</string>
+    <string name="empty_field_warning">Indica el bar y la tapa</string>
+    <string name="bad_price">Introduce un precio válido</string>
+    <string name="calculated">Precio calculado</string>
+    <string name="not_discount">Descuento: no aplicado</string>
+    <string name="carne">Recuerda enseñar tu carné de estudiante</string>
+    <string name="cleared">Formulario Limpio</string>
+    <string name="res_tapa">"Tapa: "</string>
+    <string name="res_bar">"Bar: "</string>
+    <string name="res_price">"Precio: "</string>
+    <string name="res_disc">"Descuento estudiante: "</string>
+    <string name="res_final_price">"Precio Final: "</string>
+    <string name="res_like">"Me gusta: "</string>
+    <string name="select_bar">Seleccionar Bar</string>
+    <string name="description">Descripción</string>
+    <string name="your_review">TU RESEÑA</string>
+    <string name="size">Tamaño</string>
+    <string name="size_tapa">Tapa</string>
+    <string name="size_half">Media</string>
+    <string name="size_ration">Ración</string>
+    <string name="review_1">Mala</string>
+    <string name="review_2">Meh</string>
+    <string name="review_3">Buena</string>
+    <string name="review_4">¡Muy buena!</string>
+    <string name="review_5">¡Excelente!</string>
+    <string name="score">Puntuación</string>
+
+
+</resources>
