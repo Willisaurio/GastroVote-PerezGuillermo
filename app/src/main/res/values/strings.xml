@@ -26,6 +26,7 @@
     <string name="res_final_price">"Final cost: "</string>
     <string name="res_like">"Like: "</string>
     <string name="select_bar">Select Bar</string>
+    <string name="select_a_bar">Select a bar</string>
     <string name="description">Description</string>
     <string name="your_review">YOUR REVIEW</string>
     <string name="size">Size</string>
@@ -36,7 +37,7 @@
     <string name="review_2">Meh</string>
     <string name="review_3">Good</string>
     <string name="review_4">Very Good!</string>
-    <string name="review_5">Excelent!</string>
+    <string name="review_5">Excellent!</string>
     <string name="score">Score</string>
     <string name="value_for_money">Value for money</string>
     <string name="vegetarian">Vegetarian</string>

@@ -25,6 +25,7 @@
     <string name="res_final_price">"Precio Final: "</string>
     <string name="res_like">"Me gusta: "</string>
     <string name="select_bar">Seleccionar Bar</string>
+    <string name="select_a_bar">Selecciona un bar</string>
     <string name="description">Descripción</string>
     <string name="your_review">TU RESEÑA</string>
     <string name="size">Tamaño</string>

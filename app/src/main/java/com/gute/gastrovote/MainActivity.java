@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,16 +29,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, windowInsets) -> {
-            // Grab both system bars (status/nav) and keyboard (IME) insets
-            Insets insets = windowInsets.getInsets(
-                    WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime()
-            );
-
-            // Apply them as padding to your ScrollView
-            v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
-
-            return WindowInsetsCompat.CONSUMED;
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
         });
         bars = new HashMap<>();
         bars.put(1, new Bar("Bar Paco", "Tortilla de patatas", "Un clásico de la cocina española", 3.25, true, 5f));
@@ -50,8 +45,23 @@ public class MainActivity extends AppCompatActivity {
         bars.put(8, new Bar("Bar Alquerías", "Almejas a la plancha", "Una esquisitez digna de las playas", 9.50, 4.5f));
 
         RatingBar ratingBar = findViewById(R.id.ratingBar);
-        selectedBar = 0;
+        SeekBar seekBar = findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Update the TextView with the current progress value
+                TextView tvScore = findViewById(R.id.tvScore);
+                tvScore.setText(progress + "/10");
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        selectedBar = 0;
+        barForward(null);
         // set an onRatingBarChangeListener to ratingBar to update the rating
         ratingBar.setOnRatingBarChangeListener((rBar, rating, fromUser) -> {
             updateRating(rating);
@@ -61,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     } // END OF onCreate
     Map<Integer, Bar> bars;
     private int selectedBar;
+    private boolean twiceFixer = true;
     @SuppressLint("SetTextI18n")
     public void changeBar(boolean forward){
         if(forward){
@@ -87,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
             tvPrice.setText(this.bars.get(this.selectedBar).getPrecio() + "€");
             cardRatingBar.setRating(this.bars.get(this.selectedBar).getRating());
             if( this.bars.get(this.selectedBar).isFav() ) {
-                ivFavorite.setVisibility(View.VISIBLE);
+                ivFavorite.setImageResource(R.drawable.ic_heart);
             } else {
-                ivFavorite.setVisibility(View.INVISIBLE);
+                ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
             }
         } catch (NullPointerException e){
             tvBar.setText(R.string.bar_name);
@@ -100,7 +111,14 @@ public class MainActivity extends AppCompatActivity {
             ivFavorite.setVisibility(View.INVISIBLE);
         }
     }
+    //TODO add actionListener to heart_ic
 
+    public void sayLong(String s){
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    }
+    public void sayShort(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
     public void barForward(View view){
         this.changeBar(true);
     }
@@ -111,13 +129,17 @@ public class MainActivity extends AppCompatActivity {
     public void updateRating(float rating){
         if (selectedBar == 0) {
             RatingBar ratingBar = findViewById(R.id.ratingBar);
-            ratingBar.setRating(4f);
+            ratingBar.setRating(3.5f);
             TextView tvRating = findViewById(R.id.tvRating);
             tvRating.setText(R.string.review_3);
+            // for some reason this is running twice, so i'm fixing it my way
+            if (this.twiceFixer) { // fix it visually
+                sayShort(getResources().getString(R.string.select_a_bar));
+            }
+            this.twiceFixer = !this.twiceFixer;
             return;
         }
         TextView tvRating = findViewById(R.id.tvRating);
-        Toast.makeText(this, "Rating: " + rating, Toast.LENGTH_SHORT).show();
         if( rating <= 1.0f){
             tvRating.setText(R.string.review_1);
         } else if( rating <= 2.0f){
@@ -139,10 +161,10 @@ public class MainActivity extends AppCompatActivity {
         if(selectedBar == 0){
             return;
         }
+
         CheckBox ch = findViewById(R.id.cbEstudiante);
         RatingBar rb = findViewById(R.id.ratingBar);
         updateRating(rb.getRating());
-
         double price;
         try {
             price = this.bars.get(this.selectedBar).getPrecio();
