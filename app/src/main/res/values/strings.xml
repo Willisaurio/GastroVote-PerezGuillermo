@@ -38,4 +38,9 @@
     <string name="review_4">Very Good!</string>
     <string name="review_5">Excelent!</string>
     <string name="score">Score</string>
+    <string name="value_for_money">Value for money</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="gluten_free">Gluten Free</string>
+    <string name="spicy">Spicy</string>
+    <string name="optional_review">Optional: review</string>
 </resources>

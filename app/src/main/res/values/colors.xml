@@ -7,4 +7,6 @@
     <color name="lighter_gray">#FEEE</color>
     <color name="txt_orange">#F50</color>
     <color name="rating_star">#E6A115</color>
+    <color name="main_theme">#00FD8A</color>
+    <color name="orange">#F50</color>
 </resources>

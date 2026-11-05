@@ -5,6 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:clipToPadding="false"
     tools:context=".MainActivity">
 
 
@@ -78,8 +80,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:text="Opción seleccionada"
-                tools:ignore="HardcodedText" />
+                android:text="@string/bar_name"/>
 
             <!-- Botón derecho optimizado -->
             <Button
@@ -114,26 +115,46 @@
             android:layout_height="3dp"/>
         <!-- Tamaño de la tapa -->
         <RadioGroup
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="horizontal">
-            <RadioButton
+            <TextView
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/size"
+                android:textSize="20sp"
+                android:textAlignment="textStart"/>
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:id="@+id/sizeRb1"
                 android:text="@string/size_tapa"
                 android:checked="true"/>
             <RadioButton
-                android:layout_width="wrap_content"
+
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:id="@+id/sizeRb2"
                 android:text="@string/size_half"/>
 
             <RadioButton
-                android:layout_width="wrap_content"
+
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:id="@+id/sizeRb3"
                 android:text="@string/size_ration"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"/>
         </RadioGroup>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -154,16 +175,73 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal"
-
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="16dp"
                 android:text="@string/review_3"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/value_for_money"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
 
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:max="10"
+            android:progress="5"
+            android:progressTint="@color/main_theme"
+            android:progressBackgroundTint="@color/orange"
 
+            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5/10"
+                android:textSize="24sp"
+                tools:ignore="HardcodedText" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/vegetarian"/>
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/gluten_free"/>
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/spicy"/>
+        </LinearLayout>
 
 
 
@@ -200,28 +278,46 @@
             android:text="@string/descuento_estudiante"
 
             />
+
+        <EditText
+            android:id="@+id/editTextTextMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:maxLength="200"
+            android:hint="@string/optional_review"/>
+
+        <!-- Botones Finales -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <Button
                 android:id="@+id/btnLimpiar"
                 android:onClick="clear"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="7"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/light_gray"
                 android:text="@string/clear"/>
             <Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="7"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnCalcular"
                 android:text="@string/calc"
-                android:onClick="calcular"
-                />
+                android:onClick="calcular"/>
 
         </LinearLayout>
 

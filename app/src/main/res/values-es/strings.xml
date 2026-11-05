@@ -37,6 +37,11 @@
     <string name="review_4">¡Muy buena!</string>
     <string name="review_5">¡Excelente!</string>
     <string name="score">Puntuación</string>
+    <string name="value_for_money">Calidad-Precio</string>
+    <string name="vegetarian">Vegetariana</string>
+    <string name="gluten_free">Sin Gluten</string>
+    <string name="spicy">Picante</string>
+    <string name="optional_review">Comentario (opcional)</string>
 
 
 </resources>
