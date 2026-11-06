@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -69,9 +72,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     } // END OF onCreate
+
+    // --- --- ATRIBUTES --- --- //
     Map<Integer, Bar> bars;
     private int selectedBar;
     private boolean twiceFixer = true;
+
+    // --- --- UTILS --- --- //
+    public void sayLong(String s){
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    }
+    public void sayShort(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
+    public void barForward(View view){
+        this.changeBar(true);
+    }
+    public void barBackward(View view){
+        this.changeBar(false);
+    }
     @SuppressLint("SetTextI18n")
     public void changeBar(boolean forward){
         if(forward){
@@ -92,40 +111,57 @@ public class MainActivity extends AppCompatActivity {
         RatingBar cardRatingBar = findViewById(R.id.cardRatingBar);
         ImageView ivFavorite = findViewById(R.id.ivFavorite);
         try{
-            tvBar.setText(this.bars.get(this.selectedBar).getBarName());
-            tvTitle.setText(this.bars.get(this.selectedBar).getTapaName());
-            tvSubtitle.setText(this.bars.get(this.selectedBar).getTapaDesc());
-            tvPrice.setText(this.bars.get(this.selectedBar).getPrecio() + "€");
-            cardRatingBar.setRating(this.bars.get(this.selectedBar).getRating());
-            if( this.bars.get(this.selectedBar).isFav() ) {
+            tvBar.setText(Objects.requireNonNull(this.bars.get(this.selectedBar)).getBarName());
+            tvTitle.setText(Objects.requireNonNull(this.bars.get(this.selectedBar)).getTapaName());
+            tvSubtitle.setText(Objects.requireNonNull(this.bars.get(this.selectedBar)).getTapaDesc());
+            tvPrice.setText(Objects.requireNonNull(this.bars.get(this.selectedBar)).getPrecio() + "€");
+            cardRatingBar.setRating(Objects.requireNonNull(this.bars.get(this.selectedBar)).getRating());
+            if( Objects.requireNonNull(this.bars.get(this.selectedBar)).isFav() ) {
                 ivFavorite.setImageResource(R.drawable.ic_heart);
             } else {
                 ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
             }
         } catch (NullPointerException e){
-            tvBar.setText(R.string.bar_name);
-            tvTitle.setText(R.string.tapa);
-            tvSubtitle.setText(R.string.description);
-            tvPrice.setText(R.string.precio);
-            cardRatingBar.setRating(0.0f);
-            ivFavorite.setVisibility(View.INVISIBLE);
+            this.setDefaulRating();
         }
     }
-    //TODO add actionListener to heart_ic
 
-    public void sayLong(String s){
-        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+    public void swFav(View view){
+        try {
+            boolean isFavNow = !Objects.requireNonNull(this.bars.get(this.selectedBar)).isFav();
+            Objects.requireNonNull(this.bars.get(this.selectedBar)).setFav(isFavNow);
+            if(isFavNow) {
+                this.sayShort(getResources().getString(R.string.added_to_favs));
+            } else {
+                this.sayShort(getResources().getString(R.string.removed_from_favs));
+            }
+            // Update heart ic
+            this.updateHeartIc();
+        }
+        catch (NullPointerException e){
+            ImageView ivFavorite = findViewById(R.id.ivFavorite);
+            ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
+        }
     }
-    public void sayShort(String s){
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-    }
-    public void barForward(View view){
-        this.changeBar(true);
-    }
-    public void barBackward(View view){
-        this.changeBar(false);
-    }
+        public void updateHeartIc(){
+            ImageView ivFavorite = findViewById(R.id.ivFavorite);
+            if( Objects.requireNonNull(this.bars.get(this.selectedBar)).isFav() ) {
+                ivFavorite.setImageResource(R.drawable.ic_heart);
+            } else {
+                ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
+            }
+        }
 
+        // TODO update done ic
+
+    public void updateRating(){
+        try {
+            RatingBar ratingBar = findViewById(R.id.ratingBar);
+            updateRating(ratingBar.getRating());
+        } catch (NullPointerException e){
+            this.setDefaulRating();
+        }
+    }
     public void updateRating(float rating){
         if (selectedBar == 0) {
             RatingBar ratingBar = findViewById(R.id.ratingBar);
@@ -140,7 +176,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         TextView tvRating = findViewById(R.id.tvRating);
-        if( rating <= 1.0f){
+        if( rating == 0.0f){
+            tvRating.setText(R.string.not_rated);
+        } else if( rating <= 1.0f){
             tvRating.setText(R.string.review_1);
         } else if( rating <= 2.0f){
             tvRating.setText(R.string.review_2);
@@ -153,40 +191,147 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void updateProgress(){
+        ProgressBar p = findViewById(R.id.progressBar);
+        p.setProgress(countDoneBars());
+        TextView tv = findViewById(R.id.tvProgress);
+        tv.setText(getString(R.string.progress_message, countDoneBars(), bars.size()));
+    }
+
+    public void setDefaulRating(){
+        TextView tvBar = findViewById(R.id.tvBar),
+                tvTitle = findViewById(R.id.tvTitle),
+                tvSubtitle = findViewById(R.id.tvSubtitle),
+                tvPrice = findViewById(R.id.tvPrice);
+        RatingBar cardRatingBar = findViewById(R.id.cardRatingBar);
+        ImageView ivFavorite = findViewById(R.id.ivFavorite);
+        tvBar.setText(R.string.bar_name);
+        tvTitle.setText(R.string.tapa);
+        tvSubtitle.setText(R.string.description);
+        tvPrice.setText(R.string.precio);
+        cardRatingBar.setRating(3.5f);
+        ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
+    }
+
+    public void checkStudentId(View V){
+        CheckBox c = findViewById(R.id.cbEstudiante);
+        if(c.isChecked()){
+            Toast.makeText(this, R.string.carne, Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public int countDoneBars(){
+        int count = 0;
+        for (Bar bar : bars.values()) {
+            if (bar.isDone()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private void updateDoneIc() {
+
+    }
+
+
+
+    // --- --- END UTILS --- --- //
+
 
 
 
 
     public void calcular(View view){
-        if(selectedBar == 0){
+        Bar bar;
+        try {
+            bar = Objects.requireNonNull(this.bars.get(this.selectedBar));
+        } catch (NullPointerException e){
+            sayLong(getResources().getString(R.string.select_a_bar));
             return;
         }
 
-        CheckBox ch = findViewById(R.id.cbEstudiante);
-        RatingBar rb = findViewById(R.id.ratingBar);
-        updateRating(rb.getRating());
+        RatingBar rb = findViewById(R.id.ratingBar); // calificacion
+        if (rb.getRating() == 0) {sayLong(getResources().getString(R.string.not_rated_2));return;} // check if rating is greater than 0
+        CheckBox ch = findViewById(R.id.cbEstudiante); // checkBox estudiante
+        SeekBar sb = findViewById(R.id.seekBar); // calidad-precio
+        SwitchMaterial sw = findViewById(R.id.swMeGusta); // me gusta
+        RadioGroup rg = findViewById(R.id.sizeRadioGroup); // tamaño
+        TextView tvRating = findViewById(R.id.tvRating); // valoracion (txt)
+
+
+
+
+        int  rBtId = rg.getCheckedRadioButtonId();
+        String size, bool;
+        byte multi;
+        boolean stDisc = ch.isChecked();
+        if (rBtId == R.id.sizeRb2) {
+            size = getResources().getString(R.string.size_half_2);
+            multi = 2;
+        } else if (rBtId == R.id.sizeRb3) {
+            size = getResources().getString(R.string.size_ration);
+            multi = 3;
+        } else {
+            // defaults to 1
+            size = getResources().getString(R.string.size_tapa);
+            multi = 1;
+        }
+        if ( sw.isChecked() ){
+            bool = getResources().getString(R.string.yes);
+        } else {
+            bool = getResources().getString(R.string.no);
+        }
+
         double price;
         try {
-            price = this.bars.get(this.selectedBar).getPrecio();
-        } catch (NumberFormatException e){
-            Toast.makeText(this, R.string.bad_price, Toast.LENGTH_LONG).show();
-            return;
+            price = Objects.requireNonNull(this.bars.get(this.selectedBar)).getPrecio() * multi;
         } catch (NullPointerException e){
             price = 0;
         }
-        if(ch.isChecked()){
-            //aplicar descuento
-            price = price *0.9;
+
+        String textRating;
+        if (rb.getRating() % 1 == 0){
+            textRating = String.valueOf((int) rb.getRating());
+        } else {
+            textRating = String.valueOf(rb.getRating());
         }
+
+        /*
+         * String result layout
+         * ${tapa} - ${barName}\n
+         * ${size} - ${rating}/5 (${ratingText})\n
+         * Value for money: ${valueForMoney}/10 - ${like}\n
+         * Cost: ${cost} x ${size} = ${finalCost} €\n
+         * [Discount: ${discount}]\n]
+         * Final cost {}
+         */
+        String result = bar.getTapaName()+" - "+bar.getBarName()+"\n" +
+                getResources().getString(R.string.size)+": "+size+" - "+textRating+"/5 ("+tvRating.getText()+")\n" +
+                getResources().getString(R.string.value_for_money)+": "+sb.getProgress()+"/10 - "+getResources().getString(R.string.like)+": "+bool+"\n" +
+                getResources().getString(R.string.res_price)+bar.getPrecio()+" x "+multi+" = "+price+" €\n";
+        if (stDisc) {
+            result += getResources().getString(R.string.res_disc)+"-"+((double) Math.round(price*10)/100.0)+" €\n";
+            // aplicar descuento
+            price = price * 0.9;
+            // round to 2 decimals
+            price = Math.round(price * 100.0) / 100.0;
+        }
+        result += getResources().getString(R.string.res_final_price)+price+" €";
         TextView resumen = findViewById(R.id.tvResumen);
-        //TODO resumen
+        resumen.setText(result);
         if(ch.isChecked()){
             Toast.makeText(this, R.string.calculated, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, R.string.not_discount, Toast.LENGTH_LONG).show();
         }
-    }
 
+        // completar bar
+        bar.setDone(true);
+        updateProgress();
+        updateDoneIc();
+    }
 
 
 
@@ -194,8 +339,10 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tvResumen = findViewById(R.id.tvResumen);
         tvResumen.setText(R.string.final_price);
+
         SwitchMaterial swMeGusta = findViewById(R.id.swMeGusta);
         swMeGusta.setChecked(false);
+
         CheckBox cbEstudiante = findViewById(R.id.cbEstudiante);
         cbEstudiante.setChecked(false);
 
@@ -217,14 +364,31 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    public void st(View V){
-        CheckBox c = findViewById(R.id.cbEstudiante);
-        if(c.isChecked()){
-            Toast.makeText(this, R.string.carne, Toast.LENGTH_LONG).show();
-        }
-    }
-}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+// ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   --- //
+// ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   CLASE BAR   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   --- //
+// ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   --- //
 class Bar {
     private String barName;
     private String tapaName;

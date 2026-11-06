@@ -12,7 +12,7 @@
     <string name="descuento_estudiante">Student discount (10%)</string>
     <string name="clear">CLEAR</string>
     <string name="calc">CALCULATE COST</string>
-    <string name="final_price">Here will appear the final cost</string>
+    <string name="final_price">Resumee</string>
     <string name="empty_field_warning">Set bar and tapa first</string>
     <string name="bad_price">Input a valid cost</string>
     <string name="calculated">cost calculated</string>
@@ -44,4 +44,13 @@
     <string name="gluten_free">Gluten Free</string>
     <string name="spicy">Spicy</string>
     <string name="optional_review">Optional: review</string>
+    <string name="progress">Progress</string>
+    <string name="added_to_favs">Added to favourites</string>
+    <string name="removed_from_favs">Removed from Favourites</string>
+    <string name="not_rated">Not rated</string>
+    <string name="size_half_2">Half a Ration</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="not_rated_2">Select a rating (mandatory)</string>
+    <string name="progress_message">%1d of %2d bars</string>
 </resources>

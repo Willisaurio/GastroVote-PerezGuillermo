@@ -108,13 +108,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_review"
-            android:textColor="@color/txt_orange"
+            android:textColor="?attr/barCard_title_color"
             android:textStyle="bold"/>
         <Space
             android:layout_width="0dp"
             android:layout_height="3dp"/>
         <!-- Tamaño de la tapa -->
         <RadioGroup
+            android:id="@+id/sizeRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -157,29 +158,29 @@
                 android:gravity="center"/>
         </RadioGroup>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RatingBar
                 android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:transformPivotX="0dp"
+                android:isIndicator="false"
                 android:numStars="5"
                 android:progressTint="@color/rating_star"
-                android:rating="3.5"
-                android:isIndicator="false"/>
+                android:rating="0"/>
 
             <TextView
                 android:id="@+id/tvRating"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="fill_parent"
                 android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:text="@string/review_3"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textSize="16sp"/>
 
         </LinearLayout>
 
@@ -193,8 +194,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/value_for_money"
-            android:textSize="18sp"
-            android:textColor="@color/black"/>
+            android:textSize="18sp"/>
 
         <SeekBar
             android:id="@+id/seekBar"
@@ -253,14 +253,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:onClick="like"
+                android:id="@+id/swMeGusta"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:onClick="like"
                 android:text="@string/like"
                 android:textSize="16sp"
-                android:layout_marginEnd="10dp"
-                android:id="@+id/swMeGusta"/>
+                app:thumbTint="?attr/colorPrimary"
+                app:trackTint="?attr/colorSecondary"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -272,7 +275,7 @@
 
         </LinearLayout>
         <CheckBox
-            android:onClick="st"
+            android:onClick="checkStudentId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cbEstudiante"
@@ -305,8 +308,7 @@
                 android:layout_width="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="7"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_gray"
+                android:layout_height="match_parent"
                 android:text="@string/clear"/>
             <Space
                 android:layout_height="match_parent"
@@ -331,10 +333,35 @@
         <TextView
             android:id="@+id/tvResumen"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/lighter_gray"
+            android:layout_height="wrap_content"
             android:text="@string/final_price"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
+        <!-- Layout done bars -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/progress"
+                android:textSize="14sp"
+                android:id="@+id/tvProgress"/>
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="10dp"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/main_theme"
+                android:progressBackgroundTint="@color/orange"
+                android:max="8"
+                android:progress="0"/>
+
+
+        </LinearLayout>
 
     </LinearLayout><Space
         android:layout_width="match_parent"

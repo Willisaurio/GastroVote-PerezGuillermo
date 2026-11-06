@@ -11,7 +11,7 @@
     <string name="descuento_estudiante">Descuento estudiante (10%)</string>
     <string name="clear">LIMPIAR</string>
     <string name="calc">CALCULAR PRECIO</string>
-    <string name="final_price">Aquí aparecerá el precio final</string>
+    <string name="final_price">Resúmen</string>
     <string name="empty_field_warning">Indica el bar y la tapa</string>
     <string name="bad_price">Introduce un precio válido</string>
     <string name="calculated">Precio calculado</string>
@@ -43,6 +43,15 @@
     <string name="gluten_free">Sin Gluten</string>
     <string name="spicy">Picante</string>
     <string name="optional_review">Comentario (opcional)</string>
+    <string name="progress">Progreso</string>
+    <string name="added_to_favs">Añadido a favoritos</string>
+    <string name="removed_from_favs">Quitado de favoritos</string>
+    <string name="not_rated">Sin calificar</string>
+    <string name="size_half_2">Media ración</string>
+    <string name="yes">sí</string>
+    <string name="no">no</string>
+    <string name="not_rated_2">Califica la tapa (obligatorio)</string>
+    <string name="progress_message">%1d de %2d bares</string>
 
 
 </resources>
