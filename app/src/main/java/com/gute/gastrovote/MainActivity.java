@@ -102,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
         // update tvMeGusta on onCreate to survive defaulting while onPause
         updateLikeTextView();
 
+        // update tvProgress
+        updateProgress();
+
 
     } // END OF onCreate
     @Override
