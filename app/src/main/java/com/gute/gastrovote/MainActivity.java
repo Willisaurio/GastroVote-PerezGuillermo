@@ -24,6 +24,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.io.Serializable;
@@ -280,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void confirmClearingDialog() {
         // 1. Instantiate an AlertDialog.Builder with its constructor
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.custom_alert_dialog);
 
         // 2. Chain together various setter methods to set the dialog characteristics
         builder.setMessage(getString(R.string.clear_confirm_dialog))
@@ -296,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setNegativeButton(getString(R.string.cancel_lwc), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
+                // User canceled the dialog
                 dialog.dismiss();
             }
         });
@@ -324,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
 
         RatingBar rb = findViewById(R.id.ratingBar); // calificacion
         if (rb.getRating() == 0) {sayLong(getResources().getString(R.string.not_rated_2));return;} // check if rating is greater than 0
-        CheckBox ch = findViewById(R.id.cbEstudiante); // checkBox estudiante
+        CheckBox ch = findViewById(R.id.cbEstudiante), cbVegan = findViewById(R.id.cbVegan), cbGlutenFree = findViewById(R.id.cbGlutenFree), cbSpicy = findViewById(R.id.cbSpicy); // checkBox estudiante
         SeekBar sb = findViewById(R.id.seekBar); // calidad-precio
         SwitchMaterial sw = findViewById(R.id.swMeGusta); // me gusta
         RadioGroup rg = findViewById(R.id.sizeRadioGroup); // tamaño
@@ -334,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
         int  rBtId = rg.getCheckedRadioButtonId();
         String size, bool;
         byte multi;
-        boolean stDisc = ch.isChecked();
+        boolean stDisc = ch.isChecked(), vegan = cbVegan.isChecked(), glutenFree = cbGlutenFree.isChecked(), spicy = cbSpicy.isChecked();
         if (rBtId == R.id.sizeRb2) {
             size = getResources().getString(R.string.size_half_2);
             multi = 2;
@@ -370,14 +371,38 @@ public class MainActivity extends AppCompatActivity {
          * String result layout
          * ${tapa} - ${barName}\n
          * ${size} - ${rating}/5 (${ratingText})\n
+         * [${vegan}, ${glutenFree}, ${spicy}]\n
          * Value for money: ${valueForMoney}/10 - ${like}\n
          * Cost: ${cost} x ${size} = ${finalCost} €\n
          * [Discount: ${discount}]\n]
          * Final cost {}
+         * Comment:
+         * ${comment}
          */
         String result = bar.getTapaName()+" - "+bar.getBarName()+"\n" +
-                getResources().getString(R.string.size)+": "+size+" - "+textRating+"/5 ("+tvRating.getText()+")\n" +
-                getResources().getString(R.string.value_for_money)+": "+sb.getProgress()+"/10 - "+getResources().getString(R.string.like)+": "+bool+"\n" +
+                getResources().getString(R.string.size)+": "+size+" - "+textRating+"/5 ("+tvRating.getText()+")\n";
+
+        if ( vegan ) {
+            result += getString(R.string.vegetarian);
+            if ( glutenFree || spicy ) {
+                result += ", ";
+            } else {
+                result += "\n";
+            }
+        }
+        if ( glutenFree ) {
+            result += getString(R.string.gluten_free);
+            if ( spicy ) {
+                result += ", ";
+            } else {
+                result += "\n";
+            }
+        }
+        if ( spicy ) {
+            result += getString(R.string.spicy)+"\n";
+        }
+
+        result += getResources().getString(R.string.value_for_money)+": "+sb.getProgress()+"/10 - "+getResources().getString(R.string.like)+": "+bool+"\n" +
                 getResources().getString(R.string.res_price)+bar.getPrecio()+" x "+multi+" = "+price+" €\n";
         if (stDisc) {
             result += getResources().getString(R.string.res_disc)+"-"+((double) Math.round(price*10)/100.0)+" €\n";
@@ -387,6 +412,14 @@ public class MainActivity extends AppCompatActivity {
             price = Math.round(price * 100.0) / 100.0;
         }
         result += getResources().getString(R.string.res_final_price)+price+" €";
+
+
+        EditText editTextComment = findViewById(R.id.editTextTextMultiLine);
+        String comment = editTextComment.getText().toString();
+        if (!comment.isBlank()){
+            result += "\n"+getResources().getString(R.string.comment)+":\n"+comment;
+        }
+
         TextView resumen = findViewById(R.id.tvResumen);
         resumen.setText(result);
         if(ch.isChecked()){

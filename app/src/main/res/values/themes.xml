@@ -27,6 +27,8 @@
     <style name="cb_main_darker" parent="Base.Theme.GastroVote">
         <item name="android:buttonTint">@color/main_theme_darker</item>
     </style>
-
+    <style name="custom_alert_dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/black</item>
+    </style>
     <style name="Theme.GastroVote" parent="Base.Theme.GastroVote" />
 </resources>

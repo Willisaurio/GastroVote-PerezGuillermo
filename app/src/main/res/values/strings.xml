@@ -83,4 +83,5 @@
     <string name="bar_6_name" translatable="false">Rosarito</string>
     <string name="bar_7_name" translatable="false">Bar Santomera</string>
     <string name="bar_8_name" translatable="false">Bar Alquerías</string>
+    <string name="comment">Comment</string>
 </resources>

@@ -64,6 +64,7 @@
     <string name="tapa_6_desc">inaudito</string>
     <string name="tapa_7_desc">tacos o cortes de jamón con queso parmesano rallado</string>
     <string name="tapa_8_desc">Una esquisitez digna de las playas</string>
+    <string name="comment">Comentario</string>
 
 
 </resources>
