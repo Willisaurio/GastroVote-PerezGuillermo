@@ -5,9 +5,21 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorPrimary">@color/main_theme_dark</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/main_theme_dark2</item>
+        <item name="android:colorBackground">@color/dark_bg</item>
         <item name="res_tv_bg">@color/dark_gray</item>
-        <item name="barCard_img_src">@drawable/bg_card2</item>
+        <item name="barCard_img_src">@drawable/bg_card3_dark</item>
         <item name="barCard_txt_color">@color/black</item>
         <item name="barCard_title_color">@color/dark_orange</item>
+        <item name="check_ic">@drawable/check_ic</item>
     </style>
+    <style name="main_txt" parent="Base.Theme.GastroVote">
+        <item name="android:textColor">@color/dark_orange</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="bar_card_price" parent="Base.Theme.GastroVote">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="cb_main_darker" parent="Base.Theme.GastroVote"/>
 </resources>

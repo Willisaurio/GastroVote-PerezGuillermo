@@ -24,11 +24,12 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
-        android:src="@drawable/check_ic"
+        android:src="?attr/check_ic"
         app:layout_constraintTop_toTopOf="@id/tvTitle"
         app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-        app:tint="?attr/check_ic"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        android:id="@+id/ivDone"
+        android:visibility="invisible"/>
 
     <ImageView
         android:onClick="swFav"
@@ -59,9 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text=""
-        android:textColor="#2C2C2C"
+        style="@style/bar_card_price"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

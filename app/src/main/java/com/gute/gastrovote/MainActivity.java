@@ -1,9 +1,12 @@
 package com.gute.gastrovote;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,12 +26,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressWarnings({"unchecked", "deprecation"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +44,26 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        bars = new HashMap<>();
-        bars.put(1, new Bar("Bar Paco", "Tortilla de patatas", "Un clásico de la cocina española", 3.25, true, 5f));
-        bars.put(2, new Bar("Bar Stop", "Pulpo", "Una única rodaja de pulpo", 4.50, 2.5f));
-        bars.put(3, new Bar("3 Espadas", "calamares a la romana", "Calamares con un rebozado crujiente", 6.40, 4f));
-        bars.put(4, new Bar("Bar Cobatillas", "rollito de salmón","Rollitos de salmón con queso fresco y aguacate", 4.50, 4.5f));
-        bars.put(5, new Bar("El Guapo", "Croquetas de jamón","croquetas rellenas de tacos de jamón serrano", 2.80, true, 3.5f));
-        bars.put(6, new Bar("Rosarito", "Alcachofas con jamón", "inaudito", 6.00, 3f));
-        bars.put(7, new Bar("Bar Santomera", "Jamón serrano y parmesano","tacos o cortes de jamón con queso parmesano rallado" ,8.15));
-        bars.put(8, new Bar("Bar Alquerías", "Almejas a la plancha", "Una esquisitez digna de las playas", 9.50, 4.5f));
 
+
+        if (savedInstanceState != null) {
+            // Restore the HashMap from the bundle
+            bars = (HashMap<Integer, Bar>) savedInstanceState.getSerializable(STATE_MAP);
+            selectedBar = savedInstanceState.getInt(SELECTED_BAR)-1;
+        } else {
+            bars = new HashMap<>();
+            bars.put(1, new Bar(getString(R.string.bar_1_name), getString(R.string.tapa_1_name), getString(R.string.tapa_1_desc), 3.25, true, 5f));
+            bars.put(2, new Bar(getString(R.string.bar_2_name), getString(R.string.tapa_2_name), getString(R.string.tapa_2_desc), 4.50, 2.5f));
+            bars.put(3, new Bar(getString(R.string.bar_3_name), getString(R.string.tapa_3_name), getString(R.string.tapa_3_desc), 6.40, 4f));
+            bars.put(4, new Bar(getString(R.string.bar_4_name), getString(R.string.tapa_4_name), getString(R.string.tapa_4_desc), 4.50, 4.5f));
+            bars.put(5, new Bar(getString(R.string.bar_5_name), getString(R.string.tapa_5_name), getString(R.string.tapa_5_desc), 2.80, true, 3.5f));
+            bars.put(6, new Bar(getString(R.string.bar_6_name), getString(R.string.tapa_6_name), getString(R.string.tapa_6_desc), 6.00, 3f));
+            bars.put(7, new Bar(getString(R.string.bar_7_name), getString(R.string.tapa_7_name), getString(R.string.tapa_7_desc), 8.15));
+            bars.put(8, new Bar(getString(R.string.bar_8_name), getString(R.string.tapa_8_name), getString(R.string.tapa_8_desc), 9.50, 4.5f));
+            selectedBar = 0;
+        }
+
+        // --- --- declaration of actionListeners --- --- //
         RatingBar ratingBar = findViewById(R.id.ratingBar);
         SeekBar seekBar = findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -63,18 +80,40 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-        selectedBar = 0;
         barForward(null);
         // set an onRatingBarChangeListener to ratingBar to update the rating
         ratingBar.setOnRatingBarChangeListener((rBar, rating, fromUser) -> {
             updateRating(rating);
         });
 
+        // clear form actionListener
+        Button clearBtn = findViewById(R.id.clearBtn);
+        clearBtn.setOnClickListener(v -> confirmClearingDialog());
+
+        // Like Switch actionListener
+        SwitchMaterial swMeGusta = findViewById(R.id.swMeGusta);
+        swMeGusta.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            updateLikeTextView();
+        });
+
+        // --- --- END declaration of actionListeners --- --- //
+
+        // update tvMeGusta on onCreate to survive defaulting while onPause
+        updateLikeTextView();
+
 
     } // END OF onCreate
-
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save the HashMap (ensure your keys/values implement Serializable)
+        outState.putSerializable(STATE_MAP, (HashMap<Integer, Bar>) bars);
+        outState.putInt(SELECTED_BAR, selectedBar);
+    }
     // --- --- ATRIBUTES --- --- //
     Map<Integer, Bar> bars;
+    private static final String STATE_MAP = "state_map";
+    private static final String SELECTED_BAR = "selected_bar";
     private int selectedBar;
     private boolean twiceFixer = true;
 
@@ -109,18 +148,15 @@ public class MainActivity extends AppCompatActivity {
                 tvSubtitle = findViewById(R.id.tvSubtitle),
                 tvPrice = findViewById(R.id.tvPrice);
         RatingBar cardRatingBar = findViewById(R.id.cardRatingBar);
-        ImageView ivFavorite = findViewById(R.id.ivFavorite);
         try{
             tvBar.setText(Objects.requireNonNull(this.bars.get(this.selectedBar)).getBarName());
             tvTitle.setText(Objects.requireNonNull(this.bars.get(this.selectedBar)).getTapaName());
             tvSubtitle.setText(Objects.requireNonNull(this.bars.get(this.selectedBar)).getTapaDesc());
             tvPrice.setText(Objects.requireNonNull(this.bars.get(this.selectedBar)).getPrecio() + "€");
             cardRatingBar.setRating(Objects.requireNonNull(this.bars.get(this.selectedBar)).getRating());
-            if( Objects.requireNonNull(this.bars.get(this.selectedBar)).isFav() ) {
-                ivFavorite.setImageResource(R.drawable.ic_heart);
-            } else {
-                ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
-            }
+            // external methods
+            updateHeartIc();
+            updateDoneIc();
         } catch (NullPointerException e){
             this.setDefaulRating();
         }
@@ -143,17 +179,28 @@ public class MainActivity extends AppCompatActivity {
             ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
         }
     }
-        public void updateHeartIc(){
-            ImageView ivFavorite = findViewById(R.id.ivFavorite);
-            if( Objects.requireNonNull(this.bars.get(this.selectedBar)).isFav() ) {
-                ivFavorite.setImageResource(R.drawable.ic_heart);
-            } else {
-                ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
-            }
+    public void updateHeartIc(){
+        ImageView ivFavorite = findViewById(R.id.ivFavorite);
+        if( Objects.requireNonNull(this.bars.get(this.selectedBar)).isFav() ) {
+            ivFavorite.setImageResource(R.drawable.ic_heart);
+        } else {
+            ivFavorite.setImageResource(R.drawable.ic_heart_grayscale);
         }
+    }
 
-        // TODO update done ic
 
+    public void updateDoneIc(){
+        ImageView ivDone = findViewById(R.id.ivDone);
+        try {
+            if( Objects.requireNonNull(this.bars.get(this.selectedBar)).isDone() ) {
+                ivDone.setVisibility(View.VISIBLE);
+            } else {
+                ivDone.setVisibility(View.INVISIBLE);
+            }
+        } catch (NullPointerException e) {
+            ivDone.setVisibility(View.INVISIBLE);
+        }
+    }
     public void updateRating(){
         try {
             RatingBar ratingBar = findViewById(R.id.ratingBar);
@@ -231,10 +278,33 @@ public class MainActivity extends AppCompatActivity {
         return count;
     }
 
-    private void updateDoneIc() {
+    private void confirmClearingDialog() {
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        // 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage(getString(R.string.clear_confirm_dialog))
+                .setTitle(getString(R.string.clear_confirm_dialog_title));
+
+        // Add the buttons
+        builder.setPositiveButton(getString(R.string.clear_lwc), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button
+                clearForm();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.cancel_lwc), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                dialog.dismiss();
+            }
+        });
+
+        // 3. Get the AlertDialog from create() and show it
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
-
 
 
     // --- --- END UTILS --- --- //
@@ -259,8 +329,6 @@ public class MainActivity extends AppCompatActivity {
         SwitchMaterial sw = findViewById(R.id.swMeGusta); // me gusta
         RadioGroup rg = findViewById(R.id.sizeRadioGroup); // tamaño
         TextView tvRating = findViewById(R.id.tvRating); // valoracion (txt)
-
-
 
 
         int  rBtId = rg.getCheckedRadioButtonId();
@@ -334,11 +402,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    public void clear(View view) {
-
+    public void clearForm() {
+        RadioButton rb1 = findViewById(R.id.sizeRb1), rb2 = findViewById(R.id.sizeRb2), rb3 = findViewById(R.id.sizeRb3);
+        rb1.setChecked(true);
+        rb2.setChecked(false);
+        rb3.setChecked(false);
+        SeekBar sb = findViewById(R.id.seekBar);
+        sb.setProgress(5);
+        RatingBar rb = findViewById(R.id.ratingBar);
+        rb.setRating(0);
+        TextView tvRating = findViewById(R.id.tvRating);
+        tvRating.setText(R.string.not_rated);
+        EditText comment = findViewById(R.id.editTextTextMultiLine);
+        comment.setText("");
         TextView tvResumen = findViewById(R.id.tvResumen);
         tvResumen.setText(R.string.final_price);
+
+        CheckBox cbVegan = findViewById(R.id.cbVegan), cbGlutenFree = findViewById(R.id.cbGlutenFree), cbSpicy = findViewById(R.id.cbSpicy);
+        cbVegan.setChecked(false);
+        cbGlutenFree.setChecked(false);
+        cbSpicy.setChecked(false);
+
 
         SwitchMaterial swMeGusta = findViewById(R.id.swMeGusta);
         swMeGusta.setChecked(false);
@@ -349,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.cleared, Toast.LENGTH_LONG).show();
     }
 
-    public void like(View v){
+    public void updateLikeTextView(){
         if (selectedBar == 0){
             SwitchMaterial s = findViewById(R.id.swMeGusta);
             s.setChecked(false);
@@ -389,15 +473,16 @@ public class MainActivity extends AppCompatActivity {
 // ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   --- //
 // ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   CLASE BAR   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   --- //
 // ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   ---   --- //
-class Bar {
+class Bar implements Serializable {
     private String barName;
     private String tapaName;
     private String tapaDesc;
     private double precio;
     private boolean done, fav;
     private float rating;
+    private String review = "";
 
-
+    //Constructors
     public Bar (String barName, String tapa, double precio){
         this.barName = barName;
         this.tapaName = tapa;
@@ -495,5 +580,11 @@ class Bar {
     }
     public void setRating(float rating) {
         this.rating = rating;
+    }
+    public String getReview() {
+        return review;
+    }
+    public void setReview(String review) {
+        this.review = review;
     }
 }

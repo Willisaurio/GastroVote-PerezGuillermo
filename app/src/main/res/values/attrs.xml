@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CustomTheme">
-        <attr name="check_ic" format="color" />
+        <attr name="check_ic" format="reference" />
         <attr name="res_tv_bg" format="color"/>
         <attr name="barCard_img_src" format="reference"/>
         <attr name="barCard_txt_color" format="color"/>
         <attr name="barCard_title_color" format="color"/>
-        <attr name="main_theme" format="color"/>
     </declare-styleable>
 </resources>

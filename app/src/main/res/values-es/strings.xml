@@ -10,6 +10,10 @@
     <string name="i_liked">¡Te ha gustado esta tapa!</string>
     <string name="descuento_estudiante">Descuento estudiante (10%)</string>
     <string name="clear">LIMPIAR</string>
+    <string name="clear_lwc">Limpiar</string>
+    <string name="cancel_lwc">Cancelar</string>
+    <string name="clear_confirm_dialog">¿Estás seguro de que quieres limpiar el formulario?</string>
+    <string name="clear_confirm_dialog_title">Limpiar formulario</string>
     <string name="calc">CALCULAR PRECIO</string>
     <string name="final_price">Resúmen</string>
     <string name="empty_field_warning">Indica el bar y la tapa</string>
@@ -52,6 +56,14 @@
     <string name="no">no</string>
     <string name="not_rated_2">Califica la tapa (obligatorio)</string>
     <string name="progress_message">%1d de %2d bares</string>
+    <string name="tapa_1_desc">Un clásico de la cocina española</string>
+    <string name="tapa_2_desc">Una única rodaja de pulpo</string>
+    <string name="tapa_3_desc">Calamares con un rebozado crujiente</string>
+    <string name="tapa_4_desc">Rollitos de salmón con queso fresco y aguacate</string>
+    <string name="tapa_5_desc">croquetas rellenas de tacos de jamón serrano</string>
+    <string name="tapa_6_desc">inaudito</string>
+    <string name="tapa_7_desc">tacos o cortes de jamón con queso parmesano rallado</string>
+    <string name="tapa_8_desc">Una esquisitez digna de las playas</string>
 
 
 </resources>

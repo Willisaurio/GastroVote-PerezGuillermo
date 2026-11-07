@@ -8,9 +8,13 @@
     <color name="lighter_gray">#FEEE</color>
     <color name="txt_orange">#F50</color>
     <color name="rating_star">#E6A115</color>
-    <color name="main_theme">#00FD8A</color>
+    <color name="main_theme">#00FB89</color>
+    <color name="main_theme_darker">#0C7</color>
     <color name="main_theme2">#02FCFB</color>
     <color name="orange">#F50</color>
     <color name="dark_orange">#740</color>
-    <color name="main_theme_dark">#151585</color>
+    <color name="main_theme_dark">#228</color>
+    <color name="main_theme_dark2">#222</color>
+    <color name="dark_bg">#100020</color>
+    <color name="light_bg">#CFF</color>
 </resources>

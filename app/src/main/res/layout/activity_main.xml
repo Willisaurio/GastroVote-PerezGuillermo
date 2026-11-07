@@ -17,16 +17,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/ivBanner"
-            android:layout_width="match_parent"
-            android:layout_height="175dp"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/banner_tapas"
-            tools:ignore="ContentDescription" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivBanner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="225:100"
+                app:srcCompat="@drawable/banner_tapas"
+                tools:ignore="ContentDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,8 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_review"
-            android:textColor="?attr/barCard_title_color"
-            android:textStyle="bold"/>
+            style="@style/main_txt"/>
         <Space
             android:layout_width="0dp"
             android:layout_height="3dp"/>
@@ -157,6 +163,8 @@
                 android:layout_weight="1"
                 android:gravity="center"/>
         </RadioGroup>
+
+        <!-- Rating -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -179,7 +187,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:text="@string/review_3"
+                android:text="@string/not_rated"
                 android:textSize="16sp"/>
 
         </LinearLayout>
@@ -224,12 +232,14 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
         <CheckBox
+            android:id="@+id/cbVegan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
             android:text="@string/vegetarian"/>
         <CheckBox
+            android:id="@+id/cbGlutenFree"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
@@ -237,6 +247,7 @@
             android:layout_weight="1"
             android:text="@string/gluten_free"/>
         <CheckBox
+            android:id="@+id/cbSpicy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -259,7 +270,6 @@
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:onClick="like"
                 android:text="@string/like"
                 android:textSize="16sp"
                 app:thumbTint="?attr/colorPrimary"
@@ -303,8 +313,7 @@
             android:gravity="center_vertical">
 
             <Button
-                android:id="@+id/btnLimpiar"
-                android:onClick="clear"
+                android:id="@+id/clearBtn"
                 android:layout_width="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="7"
