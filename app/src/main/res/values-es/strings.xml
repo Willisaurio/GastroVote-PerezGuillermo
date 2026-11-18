@@ -56,15 +56,12 @@
     <string name="no">no</string>
     <string name="not_rated_2">Califica la tapa (obligatorio)</string>
     <string name="progress_message">%1d de %2d bares</string>
-    <string name="tapa_1_desc">Un clásico de la cocina española</string>
-    <string name="tapa_2_desc">Una única rodaja de pulpo</string>
-    <string name="tapa_3_desc">Calamares con un rebozado crujiente</string>
-    <string name="tapa_4_desc">Rollitos de salmón con queso fresco y aguacate</string>
-    <string name="tapa_5_desc">croquetas rellenas de tacos de jamón serrano</string>
-    <string name="tapa_6_desc">inaudito</string>
-    <string name="tapa_7_desc">tacos o cortes de jamón con queso parmesano rallado</string>
-    <string name="tapa_8_desc">Una esquisitez digna de las playas</string>
     <string name="comment">Comentario</string>
+    <string name="settings">Ajustes</string>
+    <string name="about">Acerca de</string>
+    <string name="new_review">Nueva reseña</string>
+    <string name="publish">PUBLICAR</string>
+    <string name="saludo">Hello, %1s!</string>
 
 
 </resources>

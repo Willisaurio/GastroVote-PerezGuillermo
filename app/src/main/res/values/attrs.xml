@@ -6,5 +6,6 @@
         <attr name="barCard_img_src" format="reference"/>
         <attr name="barCard_txt_color" format="color"/>
         <attr name="barCard_title_color" format="color"/>
+        <attr name="toolbar_bg_color" format="color"/>
     </declare-styleable>
 </resources>

@@ -12,6 +12,7 @@
         <item name="barCard_txt_color">@color/black</item>
         <item name="barCard_title_color">@color/txt_orange</item>
         <item name="android:colorBackground">@color/light_bg</item>
+        <item name="toolbar_bg_color">@color/main_theme2</item>
 
 
     </style>

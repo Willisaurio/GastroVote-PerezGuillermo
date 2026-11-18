@@ -57,31 +57,11 @@
     <string name="no">no</string>
     <string name="not_rated_2">Select a rating (mandatory)</string>
     <string name="progress_message">%1d of %2d bars</string>
-    <string name="tapa_1_desc">A classic from the Spanish cuisine</string>
-    <string name="tapa_2_desc">Una única rodaja de pulpo</string>
-    <string name="tapa_3_desc">Calamares con un rebozado crujiente</string>
-    <string name="tapa_4_desc">Salmon rolls with fresh cheese and avocado</string>
-    <string name="tapa_5_desc">croquetas rellenas de tacos de jamón serrano</string>
-    <string name="tapa_6_desc">never heard</string>
-    <string name="tapa_7_desc">tacos o cortes de jamón con queso parmesano rallado</string>
-    <string name="tapa_8_desc">Una esquisitez digna de las playas</string>
-
-    <string name="tapa_1_name" translatable="false">Tortilla de patatas</string>
-    <string name="tapa_2_name" translatable="false">Pulpo</string>
-    <string name="tapa_3_name" translatable="false">calamares a la romana</string>
-    <string name="tapa_4_name" translatable="false">rollito de salmón</string>
-    <string name="tapa_5_name" translatable="false">Croquetas de jamón</string>
-    <string name="tapa_6_name" translatable="false">Alcachofas con jamón</string>
-    <string name="tapa_7_name" translatable="false">Jamón serrano y parmesano</string>
-    <string name="tapa_8_name" translatable="false">Almejas a la plancha</string>
-
-    <string name="bar_1_name" translatable="false">Bar Paco</string>
-    <string name="bar_2_name" translatable="false">Bar Stop</string>
-    <string name="bar_3_name" translatable="false">3 Espadas</string>
-    <string name="bar_4_name" translatable="false">Bar Cobatillas</string>
-    <string name="bar_5_name" translatable="false">El Guapo</string>
-    <string name="bar_6_name" translatable="false">Rosarito</string>
-    <string name="bar_7_name" translatable="false">Bar Santomera</string>
-    <string name="bar_8_name" translatable="false">Bar Alquerías</string>
     <string name="comment">Comment</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="new_review">New review</string>
+    <string name="placeholder" translatable="false">PLACEHOLDER</string>
+    <string name="publish">PUBLISH</string>
+    <string name="saludo">Hello, %1s!</string>
 </resources>
