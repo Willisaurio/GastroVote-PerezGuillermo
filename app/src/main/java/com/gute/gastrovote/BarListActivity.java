@@ -109,7 +109,7 @@ public class BarListActivity extends AppCompatActivity {
     public final String STATE_MAP = "bar_map";
 
     public void gotoReview(Bar bar){
-        // TODO intent to ReviewActivity
+        // TODO intent to BarInfoActivity
         Utils.sayShort(this, "Review not implemented");
     }
     public void goBack(){

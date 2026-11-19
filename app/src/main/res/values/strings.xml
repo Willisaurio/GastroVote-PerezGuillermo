@@ -64,4 +64,11 @@
     <string name="placeholder" translatable="false">PLACEHOLDER</string>
     <string name="publish">PUBLISH</string>
     <string name="saludo">Hello, %1s!</string>
+    <string name="barInfo">Bar info</string>
+    <string name="call">CALL</string>
+    <string name="web">WEB</string>
+    <string name="howToGet">HOW TO GET THERE</string>
+    <string name="shareUppercase">SHARE</string>
+    <string name="writeReview">WRITE REVIEW</string>
+    <string name="scroll_content_description">List of bars</string>
 </resources>

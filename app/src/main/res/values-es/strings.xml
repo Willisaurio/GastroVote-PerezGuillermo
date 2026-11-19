@@ -62,6 +62,14 @@
     <string name="new_review">Nueva reseña</string>
     <string name="publish">PUBLICAR</string>
     <string name="saludo">Hello, %1s!</string>
+    <string name="barInfo">Info del bar</string>
+    <string name="call">LLAMAR</string>
+    <string name="web">WEB</string>
+    <string name="howToGet">CÓMO LLEGAR</string>
+    <string name="shareUppercase">COMPARTIR</string>
+    <string name="writeReview">ESCRIBIR RESEÑA</string>
+    <string name="scroll_content_description">Lista de bares</string>
+
 
 
 </resources>

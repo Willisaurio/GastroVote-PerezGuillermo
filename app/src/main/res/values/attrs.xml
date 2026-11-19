@@ -7,5 +7,6 @@
         <attr name="barCard_txt_color" format="color"/>
         <attr name="barCard_title_color" format="color"/>
         <attr name="toolbar_bg_color" format="color"/>
+        <attr name="resumee_bg" format="color"/>
     </declare-styleable>
 </resources>

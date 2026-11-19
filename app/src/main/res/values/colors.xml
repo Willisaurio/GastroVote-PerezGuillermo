@@ -17,4 +17,6 @@
     <color name="main_theme_dark2">#013</color>
     <color name="dark_bg">#100020</color>
     <color name="light_bg">#CFF</color>
+    <color name="light_yellow">#FE8</color>
+    <color name="light_cyan">#68FF</color>
 </resources>

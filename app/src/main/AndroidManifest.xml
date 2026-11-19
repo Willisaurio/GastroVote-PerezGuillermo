@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GastroVote">
         <activity
-            android:name=".MainActivity"
+            android:name=".BarInfoActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -24,6 +24,7 @@
         <activity
             android:name=".BarListActivity"
             android:exported="false" />
+        <activity android:name=".ReviewActivity" android:exported="false" />
     </application>
 
 </manifest>

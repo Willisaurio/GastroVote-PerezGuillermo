@@ -17,7 +17,8 @@
         app:navigationIcon="@drawable/back_arrow_ic"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:contentDescription="@string/scroll_content_description">
 
         <LinearLayout
             android:id="@+id/linearLayoutBars"

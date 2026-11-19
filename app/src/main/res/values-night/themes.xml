@@ -13,6 +13,7 @@
         <item name="barCard_title_color">@color/dark_orange</item>
         <item name="check_ic">@drawable/check_ic</item>
         <item name="toolbar_bg_color">@color/main_theme_dark2</item>
+        <item name="resumee_bg">@color/main_theme_dark2</item>
     </style>
     <style name="main_txt" parent="Base.Theme.GastroVote">
         <item name="android:textColor">@color/dark_orange</item>
