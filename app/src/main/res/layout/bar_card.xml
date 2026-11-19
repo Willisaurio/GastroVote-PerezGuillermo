@@ -21,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ivFavorite" />
     <ImageView
+        android:id="@+id/ivDone"
         android:layout_width="24dp"
         android:layout_height="24dp"
         app:layout_constraintEnd_toStartOf="@+id/ivFavorite"
@@ -28,12 +29,11 @@
         app:layout_constraintTop_toTopOf="@id/tvTitle"
         app:layout_constraintBottom_toBottomOf="@id/tvTitle"
         tools:ignore="ContentDescription"
-        android:id="@+id/ivDone"
         android:visibility="invisible"/>
 
     <ImageView
-        android:onClick="swFav"
         android:id="@+id/ivFavorite"
+        android:onClick="swFav"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_heart_grayscale"

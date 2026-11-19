@@ -109,8 +109,10 @@ public class BarListActivity extends AppCompatActivity {
     public final String STATE_MAP = "bar_map";
 
     public void gotoReview(Bar bar){
-        // TODO intent to BarInfoActivity
-        Utils.sayShort(this, "Review not implemented");
+        // Get clicked bar and send it to BarInfoActivity
+        Intent intent = new Intent(this, BarInfoActivity.class);
+        intent.putExtra("bar", bar);
+        startActivity(intent);
     }
     public void goBack(){
         Intent infoCarrier = new Intent();

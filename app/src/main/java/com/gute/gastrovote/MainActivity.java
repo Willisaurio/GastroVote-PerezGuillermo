@@ -3,6 +3,9 @@ package com.gute.gastrovote;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +27,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
@@ -54,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        updateInternetConnectionStatus();
+
 
 
 
@@ -69,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
                 menuInflater.inflate(R.menu.main_activity_menubar, menu);
 
-                if (menu instanceof androidx.appcompat.view.menu.MenuBuilder) {
-                    androidx.appcompat.view.menu.MenuBuilder menuBuilder =
-                            (androidx.appcompat.view.menu.MenuBuilder) menu;
+                if (menu instanceof MenuBuilder) {
+                    MenuBuilder menuBuilder =
+                            (MenuBuilder) menu;
                     //noinspection RestrictedApi
                     menuBuilder.setOptionalIconsVisible(true);
                 }
@@ -92,7 +98,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
 
-        });
+        }); // End of toolbar actionListeners
+
+
+
         // --- --- END declaration of actionListeners --- --- //
 
 
@@ -104,13 +113,27 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        updateInternetConnectionStatus();
+        registerNetworkCallback();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterNetworkCallback();
+    }
+
+    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(PROGRESS_KEY, progress);
-        }
+    }
     // --- --- ATRIBUTES --- --- //
     private int progress;
     public final String PROGRESS_KEY = "progress";
+    private ConnectivityManager.NetworkCallback networkCallback;
 
     // --- --- UTILS --- --- //
     //post production fix
@@ -136,7 +159,10 @@ public class MainActivity extends AppCompatActivity {
     private void gotoAbout() {
         this.sayShort("About not implemented");
     }
-
+    public void gotoList(View v){
+        Intent intent = new Intent(this, BarListActivity.class);
+        startActivity(intent);
+    }
     public void updateProgress(){
         ProgressBar p = findViewById(R.id.progressBar);
         p.setProgress(0);
@@ -147,9 +173,68 @@ public class MainActivity extends AppCompatActivity {
 
 
     // --- --- END UTILS --- --- //
-    public void gotoList(View v){
-        Intent intent = new Intent(this, BarListActivity.class);
-        startActivity(intent);
+
+
+    // NETWORK UTILITIES
+    private void updateInternetConnectionStatus() {
+
+        // Set the text of the greeting to Hello + username with placeholders
+        TextView tv = findViewById(R.id.tvTitulo);
+        tv.setText(getString(R.string.saludo, PreferencesHandler.getUsername(this)));
+        // check if there is connection to the internet and what type is it
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        TextView tvConnInfo = findViewById(R.id.tvConnectionInfo);
+        boolean connected = false;
+        if (cm != null) {
+            Network network = cm.getActiveNetwork();
+            if (network != null) {
+                NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+                if (capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                    if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        tvConnInfo.setText(getString(R.string.conn_info_WiFi));
+                        connected = true;
+                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        tvConnInfo.setText(getString(R.string.conn_info_mobile));
+                        connected = true;
+                    }
+                }
+            }
+        }
+        if (!connected) {
+            tvConnInfo.setText(getString(R.string.conn_info_noConn));
+        }
+    }
+    private void registerNetworkCallback() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null && networkCallback == null) {
+            networkCallback = new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onAvailable(@NonNull Network network) {
+                    runOnUiThread(() -> updateInternetConnectionStatus());
+                }
+
+                @Override
+                public void onLost(@NonNull Network network) {
+                    runOnUiThread(() -> updateInternetConnectionStatus());
+                }
+
+                @Override
+                public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
+                    runOnUiThread(() -> updateInternetConnectionStatus());
+                }
+            };
+            cm.registerDefaultNetworkCallback(networkCallback);
+        }
+    }
+
+    private void unregisterNetworkCallback() {
+        if (networkCallback != null) {
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (cm != null) {
+                cm.unregisterNetworkCallback(networkCallback);
+            }
+            networkCallback = null;
+        }
     }
 }
 

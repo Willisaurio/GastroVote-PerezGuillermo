@@ -61,7 +61,7 @@
     <string name="about">Acerca de</string>
     <string name="new_review">Nueva reseña</string>
     <string name="publish">PUBLICAR</string>
-    <string name="saludo">Hello, %1s!</string>
+    <string name="saludo">Hola, %1s!</string>
     <string name="barInfo">Info del bar</string>
     <string name="call">LLAMAR</string>
     <string name="web">WEB</string>
@@ -69,7 +69,10 @@
     <string name="shareUppercase">COMPARTIR</string>
     <string name="writeReview">ESCRIBIR RESEÑA</string>
     <string name="scroll_content_description">Lista de bares</string>
-
+    <string name="app_init_bt_text">VER LA RUTA</string>
+    <string name="conn_info_WiFi">· Conectado por WiFi</string>
+    <string name="conn_info_mobile">· Conectado por datos móviles</string>
+    <string name="conn_info_noConn">· Desconectado: la web del bar no estará disponible</string>
 
 
 </resources>

@@ -71,4 +71,8 @@
     <string name="shareUppercase">SHARE</string>
     <string name="writeReview">WRITE REVIEW</string>
     <string name="scroll_content_description">List of bars</string>
+    <string name="app_init_bt_text">SEE THE ROUTE</string>
+    <string name="conn_info_WiFi">· Connected via WiFi</string>
+    <string name="conn_info_mobile">· Connected via mobile network</string>
+    <string name="conn_info_noConn">· No connection: bar web won\'t be avaliable</string>
 </resources>

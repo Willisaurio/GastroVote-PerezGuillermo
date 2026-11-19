@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GastroVote">
         <activity
-            android:name=".BarInfoActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -21,10 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".BarListActivity"
-            android:exported="false" />
+        <activity android:name=".BarListActivity" android:exported="false" />
+        <activity android:name=".BarInfoActivity" android:exported="false" />
         <activity android:name=".ReviewActivity" android:exported="false" />
+        <activity android:name=".SettingsActivity" android:exported="false" />
+        <activity android:name=".AboutActivity" android:exported="false" />
     </application>
 
 </manifest>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Verde pastel claro de fondo -->
+    <solid android:color="#E7F3E6" />
+
+    <!-- Bordes tipo píldora -->
+    <corners android:radius="100dp" />
+
+    <!-- Espaciado interior -->
+    <padding
+        android:left="14dp"
+        android:top="8dp"
+        android:right="14dp"
+        android:bottom="8dp" />
+</shape>

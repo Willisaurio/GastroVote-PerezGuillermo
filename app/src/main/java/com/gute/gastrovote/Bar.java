@@ -13,7 +13,7 @@ public class Bar implements Serializable {
     private boolean done, fav;
     private float rating;
     private String review = "";
-    private Uri telf;
+    private String telf;
     private Uri web;
     private Uri geo;
 
@@ -75,7 +75,7 @@ public class Bar implements Serializable {
         this.fav = fav;
         this.rating = rating;
     }
-    public Bar (String barName, String tapa, String desc, double precio, boolean done, boolean fav, float rating, Uri telf, Uri web, Uri geo){
+    public Bar (String barName, String tapa, String desc, double precio, boolean done, boolean fav, float rating, String telf, Uri web, Uri geo){
         this.barName = barName;
         this.tapaName = tapa;
         this.tapaDesc = desc;
@@ -137,10 +137,18 @@ public class Bar implements Serializable {
     public void setReview(String review) {
         this.review = review;
     }
-    public Uri getTelf() {
+    public String getTelf() {
         return telf;
     }
-    public void setTelf(Uri telf) {
+    public Uri getTelfUri(){
+        String[] digits = this.telf.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (String digit : digits) {
+            sb.append(digit);
+        }
+        return Uri.parse("tel:" + sb);
+    }
+    public void setTelf(String telf) {
         this.telf = telf;
     }
     public Uri getWeb() {
